@@ -27,6 +27,11 @@ const workerSchema = new mongoose.Schema(
       },
       unique: true,
     },
+    specialization: {
+      type: mongoose.Types.ObjectId,
+      ref: "Specialization",
+      required: [true, "specialization is Required"],
+    },
     others: {
       type: Array,
     },
