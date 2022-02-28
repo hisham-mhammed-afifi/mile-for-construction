@@ -1,4 +1,3 @@
-const { type } = require("express/lib/response");
 const mongoose = require("mongoose");
 
 const projectSchema = new mongoose.Schema({
@@ -12,5 +11,16 @@ const projectSchema = new mongoose.Schema({
   },
   description: {
     type: String,
+    maxlength: 500,
+  },
+  image: {
+    type: String,
+    default: "project.jpg",
+  },
+  workerId: {
+    type: mongoose.Types.ObjectId,
+    ref: "Worker",
   },
 });
+
+module.exports = mongoose.model("Project", projectSchema);

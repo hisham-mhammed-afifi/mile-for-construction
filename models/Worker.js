@@ -15,7 +15,7 @@ const workerSchema = new mongoose.Schema(
     mobile: {
       type: Number,
       required: [true, "Mobile Number is Required"],
-      unique: true,
+      unique: [true, "Mobile Number is Already Registered"],
     },
     nationalID: {
       type: Number,
