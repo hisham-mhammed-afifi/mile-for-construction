@@ -4,10 +4,12 @@ const app = express();
 const connectDB = require("./db/connect");
 const workerRouter = require("./routes/worker.routes");
 const projectRouter = require("./routes/project.routes");
+const contractRouter = require("./routes/contract.routes");
 
 app.use(express.json());
 app.use("/worker", workerRouter);
 app.use("/project", projectRouter);
+app.use("/contract", contractRouter);
 
 const port = process.env.PORT || 3000;
 const startServer = async () => {
