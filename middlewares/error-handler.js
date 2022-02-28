@@ -20,9 +20,9 @@ const errorHandler = (err, req, res, next) => {
     customError.msg = `Not found`;
     customError.statusCode = 404;
   }
-  console.log(err);
+  // console.log(err);
 
-  res.status(customError.statusCode).send({ msg: customError.msg });
+  res.status(customError.statusCode).json({ msg: customError.msg });
 };
 
 module.exports = errorHandler;
