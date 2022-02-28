@@ -30,7 +30,10 @@ const getSingleCost = async (req, res) => {
 
 const updateCost = async (req, res) => {
   try {
-    const cost = await Cost.create();
+    const cost = await Cost.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+      new: true,
+      runValidators: true,
+    });
     res.status(201).send(cost);
   } catch (err) {
     res.status(400).send(err.message);
@@ -39,8 +42,11 @@ const updateCost = async (req, res) => {
 
 const deleteCost = async (req, res) => {
   try {
-    const cost = await Cost.create(req.body);
-    res.status(201).send(cost);
+    const cost = await Cost.findOneAndDelete({ _id: req.params.id });
+    if (!cost) {
+      res.status(404).send("Cost Not Found");
+    }
+    res.status(201).send("Deleted Successfully");
   } catch (err) {
     res.status(400).send(err.message);
   }
