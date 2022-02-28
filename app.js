@@ -4,10 +4,11 @@ const app = express();
 const connectDB = require("./db/connect");
 const workerRouter = require("./routes/worker.routes");
 const projectRouter = require("./routes/project.routes");
-
+const accountRoutes = require("./routes/account.routes");
 app.use(express.json());
 app.use("/worker", workerRouter);
 app.use("/project", projectRouter);
+app.use("/accounts",accountRoutes)
 
 const port = process.env.PORT || 3000;
 const startServer = async () => {
