@@ -1,5 +1,9 @@
 const mongoose = require("mongoose");
 
+const projectWorkersSchema = new mongoose.Schema({
+  workerId: { type: mongoose.Types.ObjectId, ref: "Worker" },
+});
+
 const projectSchema = new mongoose.Schema({
   name: {
     type: String,
@@ -17,10 +21,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     default: "project.jpg",
   },
-  workerId: {
-    type: mongoose.Types.ObjectId,
-    ref: "Worker",
-  },
+  workerId: [projectWorkersSchema],
 });
 
 module.exports = mongoose.model("Project", projectSchema);
