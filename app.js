@@ -1,11 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const connectDB = require("./db/connect");
-
 const app = express();
+const connectDB = require("./db/connect");
+const workerRouter = require("./routes/worker.routes");
+
+app.use("/workers", workerRouter);
 
 const port = process.env.PORT || 3000;
-
 const startServer = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
