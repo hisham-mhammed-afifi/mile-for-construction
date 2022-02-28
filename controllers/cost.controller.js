@@ -46,4 +46,4 @@ const deleteCost = async (req, res) => {
   }
 };
 
-module.exports = { addCost, getSingleCost, getAllCost };
+module.exports = { addCost, getSingleCost, getAllCost, updateCost, deleteCost };
