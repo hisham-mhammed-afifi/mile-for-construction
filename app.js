@@ -7,12 +7,15 @@ const projectRouter = require("./routes/project.routes");
 const contractRouter = require("./routes/contract.routes");
 const specializationRouter = require("./routes/specialization.routes");
 const accountRoutes = require("./routes/account.routes");
+const costRouter = require("./routes/cost.routes");
+
 app.use(express.json());
 app.use("/worker", workerRouter);
 app.use("/project", projectRouter);
 app.use("/accounts", accountRoutes);
 app.use("/contract", contractRouter);
 app.use("/specialization", specializationRouter);
+app.use("/cost", costRouter);
 
 const port = process.env.PORT || 3000;
 const startServer = async () => {

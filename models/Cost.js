@@ -1,19 +1,22 @@
 const mongoose = require("mongoose");
 
-const constSchema = new mongoose.Schema(
+const costSchema = new mongoose.Schema(
   {
-    projectId: {
+    workerId: {
       type: mongoose.Types.ObjectId,
-      ref: "Project",
+      ref: "Worker",
+      required: [true, "Worker ID is Required"],
     },
     amount: {
       type: Number,
       required: [true, "Cost is Required"],
     },
     notes: {
-      type: Array,
-      maxlength: 100,
+      type: String,
+      maxlength: 500,
     },
   },
   { timestamps: true }
 );
+
+module.exports = mongoose.model("Cost", costSchema);
