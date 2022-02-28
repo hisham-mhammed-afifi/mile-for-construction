@@ -4,9 +4,7 @@ const app = express();
 const connectDB = require("./db/connect");
 const workerRouter = require("./routes/worker.routes");
 const projectRouter = require("./routes/project.routes");
-
 const contractRouter = require("./routes/contract.routes");
-
 const specializationRouter = require("./routes/specialization.routes");
 
 app.use(express.json());
