@@ -13,7 +13,7 @@ const authenticatedUser = async (req, res, next) => {
   }
   console.log("token", token);
   const user = isValidToken({ token });
-  console.log(user);
+  console.log("from auth", user);
   req.user = { userID: user.userID, role: user.role };
 
   next();

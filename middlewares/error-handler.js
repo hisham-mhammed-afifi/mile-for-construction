@@ -20,7 +20,6 @@ const errorHandler = (err, req, res, next) => {
     customError.msg = `Not found`;
     customError.statusCode = 404;
   }
-  // console.log(err);
 
   res.status(customError.statusCode).json({ msg: customError.msg });
 };
