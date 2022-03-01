@@ -11,7 +11,7 @@ const constSchema = new mongoose.Schema(
       required: [true, "Cost is Required"],
     },
     notes: {
-      type: Array,
+      type: String,
       maxlength: 100,
     },
   },
