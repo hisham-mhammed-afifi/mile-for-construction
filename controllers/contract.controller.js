@@ -1,59 +1,46 @@
 const Contract = require("../models/Contract");
+const { NotFoundError } = require("../errors");
 
 const addContract = async (req, res) => {
-  try {
-    const contract = await Contract.create(req.body);
-    res.status(201).send(contract);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  const contract = await Contract.create(req.body);
+  res.status(StatusCodes.CREATED).json({ contract });
 };
 
 const getAllContract = async (req, res) => {
-  try {
-    const contract = await Contract.find({});
-    res.status(201).send(contract);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  const contracts = await Contract.find({});
+  res.status(StatusCodes.OK).json({ contracts });
 };
 
 const getSingleContract = async (req, res) => {
-  try {
-    const contract = await Contract.findOne({ _id: req.params.id });
-    if (!contract) {
-      res.status(404).send("Contract Not Found");
-    }
-    res.status(201).send(contract);
-  } catch (err) {
-    res.status(400).send(err.message);
+  const contract = await Contract.findOne({ _id: req.params.id });
+  if (!contract) {
+    throw new NotFoundError("Contract not found");
   }
+  res.status(StatusCodes.OK).json({ contract });
 };
 
 const updateContract = async (req, res) => {
-  try {
-    const contract = await Contract.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+  const contract = await Contract.findByIdAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    {
       new: true,
       runValidators: true,
-    });
-    if (!contract) {
-      return res.status(404).send("Contract Not Found");
     }
-    res.status(201).send(contract);
-  } catch (err) {
-    res.status(400).send(err.message);
+  );
+  if (!contract) {
+    throw new NotFoundError("Contract not found");
   }
+  res.status(StatusCodes.OK).json({ contract });
 };
 const deleteContract = async (req, res) => {
-  try {
-    const contract = await Contract.findByIdAndDelete({ _id: req.params.id });
-    if (!contract) {
-      return res.status(404).send("Contract Not Found");
-    }
-    res.status(201).send("Contract Has Been Deleted Successfully");
-  } catch (err) {
-    res.status(400).send(err.message);
+  const contract = await Contract.findByIdAndDelete({ _id: req.params.id });
+  if (!contract) {
+    throw new NotFoundError("Contract not found");
   }
+  res
+    .status(StatusCodes.OK)
+    .json({ msg: "Contract Has Been Deleted Successfully" });
 };
 
 module.exports = {

@@ -1,7 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const { NotFoundError } = require("../errors");
 const Account = require("../models/Account");
-const Worker = require("../models/Worker");
 
 const addAccount = async (req, res) => {
   const account = await Account.create(req.body);
