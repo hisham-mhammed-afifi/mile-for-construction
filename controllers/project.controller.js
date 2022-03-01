@@ -1,57 +1,42 @@
 const Project = require("../models/Project");
+const { NotFoundError } = require("../errors");
 
 const addProject = async (req, res) => {
-  try {
-    const project = await Project.create(req.body);
-    res.status(201).send(project);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  const project = await Project.create(req.body);
+  res.status(StatusCodes.CREATED).json({ project });
 };
 
 const getAllProjects = async (req, res) => {
-  try {
-    const project = await Project.find({});
-    res.status(200).send(project);
-  } catch (err) {
-    res.status(404).send(err.message);
-  }
+  const projects = await Project.find({});
+  res.status(StatusCodes.OK).json({ projects });
 };
 
 const getProject = async (req, res) => {
-  try {
-    const project = await Project.findOne({ _id: req.params.id });
-    if (!project) {
-      return res.status(404).send("Project Not Found");
-    }
-    res.status(200).send(project);
-  } catch (err) {
-    res.status(404).send(err.message);
+  const project = await Project.findOne({ _id: req.params.id });
+  if (!project) {
+    throw new NotFoundError("Account not found");
   }
+  res.status(StatusCodes.OK).json({ project });
 };
 
 const updateProject = async (req, res) => {
-  try {
-    const project = await Project.findOneAndUpdate({ _id: req.params.id }, req.body, {
+  const project = await Project.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    {
       new: true,
       runValidators: true,
-    });
-    res.status(200).send(project);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+    }
+  );
+  res.status(StatusCodes.OK).json({ project });
 };
 
 const deleteProject = async (req, res) => {
-  try {
-    const project = await Project.findOneAndDelete({ _id: req.params.id });
-    if (!project) {
-      return res.status(404).send("Project Not Found");
-    }
-    res.status(200).send("Sucssefully Deleted");
-  } catch (err) {
-    res.status(400).send(err.message);
+  const project = await Project.findOneAndDelete({ _id: req.params.id });
+  if (!project) {
+    throw new NotFoundError("Account not found");
   }
+  res.status(StatusCodes.OK).json({ msg: "Sucssefully Deleted" });
 };
 
 module.exports = {

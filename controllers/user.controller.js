@@ -1,9 +1,5 @@
 const User = require("../models/User");
-const {
-  BadRequestError,
-  NotAuthenticatedError,
-  ConflictError,
-} = require("../errors");
+const { BadRequestError, NotAuthenticatedError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 const { createJWT } = require("../utils/jwt");
 
