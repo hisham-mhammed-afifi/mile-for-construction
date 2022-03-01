@@ -1,54 +1,36 @@
+const { StatusCodes } = require("http-status-codes");
+const { NotFoundError } = require("../errors");
 const Worker = require("../models/Worker");
 
 const addWorker = async (req, res) => {
-  try {
-    const worker = await Worker.create(req.body);
-    res.status(201).send(worker);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  const worker = await Worker.create(req.body);
+  res.status(StatusCodes.CREATED).json({ worker });
 };
 
 const getAllWorkers = async (req, res) => {
-  try {
-    const workers = await Worker.find({});
-    res.status(200).send(workers);
-  } catch (err) {
-    res.status(404).send(err.message);
-  }
+  const workers = await Worker.find({});
+  res.status(StatusCodes.OK).json({ workers });
 };
 const getWorker = async (req, res) => {
-  try {
-    const worker = await Worker.findOne({ _id: req.params.id });
-    if (!worker) {
-      return res.status(404).send("Worker Not Found");
-    }
-    res.status(200).send(worker);
-  } catch (err) {
-    res.status(404).send(err.message);
+  const worker = await Worker.findOne({ _id: req.params.id });
+  if (!worker) {
+    throw new NotFoundError("Worker not found");
   }
+  res.status(StatusCodes.OK).json({ worker });
 };
 const updateWorker = async (req, res) => {
-  try {
-    const worker = await Worker.findOneAndUpdate({ _id: req.params.id }, req.body, {
-      new: true,
-      runValidators: true,
-    });
-    res.status(200).send(worker);
-  } catch (err) {
-    res.status(400).send(err.message);
-  }
+  const worker = await Worker.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+  res.status(StatusCodes.OK).json({ worker });
 };
 const deleteWorker = async (req, res) => {
-  try {
-    const worker = await Worker.findOneAndDelete({ _id: req.params.id });
-    if (!worker) {
-      return res.status(404).send("Worker Not Found");
-    }
-    res.status(200).send("Sucssefully Deleted");
-  } catch (err) {
-    res.status(400).send(err.message);
+  const worker = await Worker.findOneAndDelete({ _id: req.params.id });
+  if (!worker) {
+    throw new NotFoundError("Worker not found");
   }
+  res.status(StatusCodes.OK).json({ msg: "Sucssefully Deleted" });
 };
 module.exports = {
   addWorker,
