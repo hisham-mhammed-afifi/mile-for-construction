@@ -9,9 +9,9 @@ const {
 } = require("../controllers/specialization.controller");
 
 router.post("/", addSpecialization);
-router.get("/", getAllSpecializations);
 router.get("/:id", getSpecialization);
 router.patch("/:id", updateSpecialization);
 router.delete("/:id", deleteSpecialization);
+router.get("/", getAllSpecializations);
 
 module.exports = router;

@@ -9,10 +9,10 @@ const {
   deleteContract,
 } = require("../controllers/contract.controller");
 
-router.get("/", getAllContract);
 router.post("/", addContract);
 router.get("/:id", getSingleContract);
 router.patch("/:id", updateContract);
 router.delete("/:id", deleteContract);
+router.get("/", getAllContract);
 
 module.exports = router;
