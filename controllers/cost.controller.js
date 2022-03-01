@@ -12,7 +12,7 @@ const addCost = async (req, res) => {
 const getAllCost = async (req, res) => {
   try {
     const cost = await Cost.find({});
-    res.status(201).send(cost);
+    res.status(200).send(cost);
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -34,7 +34,7 @@ const updateCost = async (req, res) => {
       new: true,
       runValidators: true,
     });
-    res.status(201).send(cost);
+    res.status(200).send(cost);
   } catch (err) {
     res.status(400).send(err.message);
   }
@@ -46,7 +46,7 @@ const deleteCost = async (req, res) => {
     if (!cost) {
       res.status(404).send("Cost Not Found");
     }
-    res.status(201).send("Deleted Successfully");
+    res.status(200).send("Deleted Successfully");
   } catch (err) {
     res.status(400).send(err.message);
   }
