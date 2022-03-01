@@ -15,8 +15,8 @@ const projectSchema = new mongoose.Schema(
       maxlength: 500,
     },
     image: {
-      type: String,
-      default: "project.jpg",
+      type: [String],
+      default: ["project.jpg"],
     },
     workerId: [{ type: mongoose.Types.ObjectId, ref: "Worker" }],
   },

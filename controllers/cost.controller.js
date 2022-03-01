@@ -12,6 +12,24 @@ const getAllCost = async (req, res) => {
   res.status(StatusCodes.OK).json({ costs });
 };
 
+const getSumProject = async (req, res) => {
+  const costs = await Cost.aggregate([
+    {
+      $group: {
+        _id: "$projectId",
+        total: {
+          $sum: "$amount",
+        },
+      },
+    },
+  ]);
+
+  if (!costs) {
+    throw new NotFoundError("Costs not found");
+  }
+  res.status(StatusCodes.OK).json({ costs });
+};
+
 const getSingleCost = async (req, res) => {
   const cost = await Cost.findOne({ _id: req.params.id });
   if (!cost) {
@@ -36,4 +54,4 @@ const deleteCost = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Deleted Successfully" });
 };
 
-module.exports = { addCost, getSingleCost, getAllCost, updateCost, deleteCost };
+module.exports = { addCost, getSingleCost, getAllCost, updateCost, deleteCost, getSumProject };

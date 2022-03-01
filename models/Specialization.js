@@ -9,6 +9,7 @@ const specializationSchema = new mongoose.Schema({
     type: String,
     required: [true, "Type is Required"],
   },
+  workerId: [{ type: mongoose.Types.ObjectId, ref: "Worker" }],
 });
 
 module.exports = mongoose.model("Specialization", specializationSchema);

@@ -1,4 +1,5 @@
 const Project = require("../models/Project");
+const Cost = require("../models/Cost");
 const { NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
 
@@ -21,14 +22,10 @@ const getProject = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-  const project = await Project.findOneAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const project = await Project.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
   res.status(StatusCodes.OK).json({ project });
 };
 

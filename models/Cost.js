@@ -7,6 +7,11 @@ const costSchema = new mongoose.Schema(
       ref: "Worker",
       required: [true, "Worker ID is Required"],
     },
+    projectId: {
+      type: mongoose.Types.ObjectId,
+      ref: "Project",
+      required: [true, "Project ID is Required"],
+    },
     amount: {
       type: Number,
       required: [true, "Cost is Required"],
@@ -18,5 +23,12 @@ const costSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
+
+costSchema.virtual("projcet", {
+  ref: "Project",
+  localField: "projectId",
+  foreignField: "_id",
+  justOne: true,
+});
 
 module.exports = mongoose.model("Cost", costSchema);
