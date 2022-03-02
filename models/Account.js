@@ -2,9 +2,13 @@ const mongoose = require("mongoose");
 
 const accountSchema = new mongoose.Schema(
   {
-    project: {
+    projectId: {
       type: mongoose.Types.ObjectId,
       ref: "Project",
+    },
+    projectName: {
+      type: String,
+      required: [true, "Account name is required"],
     },
   },
   { timestamps: true }

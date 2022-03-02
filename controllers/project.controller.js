@@ -6,7 +6,10 @@ const { StatusCodes } = require("http-status-codes");
 
 const addProject = async (req, res) => {
   const project = await Project.create(req.body);
-  const account = await Account.create(req.body.name);
+  const account = await Account.create({
+    projectName: project.name,
+    projectId: project._id,
+  });
   res.status(StatusCodes.CREATED).json({ project, account });
 };
 
