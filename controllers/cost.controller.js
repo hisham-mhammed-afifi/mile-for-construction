@@ -17,8 +17,28 @@ const getAllCost = async (req, res) => {
 const getSumProject = async (req, res) => {
   const costs = await Cost.aggregate([
     {
+      $lookup: {
+        from: "projects",
+        localField: "projectId",
+        foreignField: "_id",
+        as: "projects",
+      },
+    },
+    {
+      $project: {
+        projectId: 1,
+        amount: 1,
+        projectName: "$projects.name",
+      },
+    },
+    {
+      $unwind: {
+        path: "$projectName",
+      },
+    },
+    {
       $group: {
-        _id: "$projectId",
+        _id: "$projectName",
         total: {
           $sum: "$amount",
         },
