@@ -21,13 +21,10 @@ app.use("/contract", contractRouter);
 app.use("/specialization", specializationRouter);
 app.use("/cost", costRouter);
 
-
-
-
 // must be after all routes and require express-async-errors package
 app.use(errorHandler);
 ///////////////////////////
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8000;
 const startServer = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
