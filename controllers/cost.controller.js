@@ -8,7 +8,9 @@ const addCost = async (req, res) => {
 };
 
 const getAllCost = async (req, res) => {
-  const costs = await Cost.find({}).populate("projectName");
+  const costs = await Cost.find({})
+    .populate("project", "name")
+    .populate("worker", "name");
   res.status(StatusCodes.OK).json({ costs });
 };
 

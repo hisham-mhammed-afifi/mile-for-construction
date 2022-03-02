@@ -24,9 +24,16 @@ const costSchema = new mongoose.Schema(
   { timestamps: true, toJSON: { virtuals: true } }
 );
 
-costSchema.virtual("projectName", {
+costSchema.virtual("project", {
   ref: "Project",
   localField: "projectId",
+  foreignField: "_id",
+  justOne: true,
+});
+
+costSchema.virtual("worker", {
+  ref: "Worker",
+  localField: "workerId",
   foreignField: "_id",
   justOne: true,
 });
