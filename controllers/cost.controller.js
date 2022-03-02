@@ -1,5 +1,6 @@
 const Cost = require("../models/Cost");
 const { NotFoundError } = require("../errors");
+const { StatusCodes } = require("http-status-codes");
 
 const addCost = async (req, res) => {
   const cost = await Cost.create(req.body);
@@ -20,7 +21,7 @@ const getSingleCost = async (req, res) => {
 };
 
 const updateCost = async (req, res) => {
-  const cost = await Cost.findByIdAndUpdate({ _id: req.params.id }, req.body, {
+  const cost = await Cost.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
     runValidators: true,
   });

@@ -1,5 +1,6 @@
 const Project = require("../models/Project");
 const { NotFoundError } = require("../errors");
+const { StatusCodes } = require("http-status-codes");
 
 const addProject = async (req, res) => {
   const project = await Project.create(req.body);
@@ -14,7 +15,7 @@ const getAllProjects = async (req, res) => {
 const getProject = async (req, res) => {
   const project = await Project.findOne({ _id: req.params.id });
   if (!project) {
-    throw new NotFoundError("Account not found");
+    throw new NotFoundError("Project not found");
   }
   res.status(StatusCodes.OK).json({ project });
 };
@@ -34,7 +35,7 @@ const updateProject = async (req, res) => {
 const deleteProject = async (req, res) => {
   const project = await Project.findOneAndDelete({ _id: req.params.id });
   if (!project) {
-    throw new NotFoundError("Account not found");
+    throw new NotFoundError("Project not found");
   }
   res.status(StatusCodes.OK).json({ msg: "Sucssefully Deleted" });
 };

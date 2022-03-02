@@ -1,5 +1,6 @@
 const Contract = require("../models/Contract");
 const { NotFoundError } = require("../errors");
+const { StatusCodes } = require("http-status-codes");
 
 const addContract = async (req, res) => {
   const contract = await Contract.create(req.body);

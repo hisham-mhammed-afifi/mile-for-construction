@@ -19,10 +19,14 @@ const getWorker = async (req, res) => {
   res.status(StatusCodes.OK).json({ worker });
 };
 const updateWorker = async (req, res) => {
-  const worker = await Worker.findOneAndUpdate({ _id: req.params.id }, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const worker = await Worker.findOneAndUpdate(
+    { _id: req.params.id },
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
   res.status(StatusCodes.OK).json({ worker });
 };
 const deleteWorker = async (req, res) => {

@@ -6,17 +6,17 @@ const errorHandler = (err, req, res, next) => {
     msg: err.message || "something went wrong",
   };
 
-  if (err.name === "ValidationError") {
+  if (err.name == "ValidationError") {
     customError.msg = err.message;
     customError.statusCode = 400;
   }
 
-  if (err.code && err.code === "11000") {
-    customError.msg = `You entered Duplicated ${err.keyValue}`;
+  if (err.code && err.code == 11000) {
+    customError.msg = `You entered Duplicated ${Object.keys(err.keyValue)[0]}`;
     customError.statusCode = 400;
   }
 
-  if (err.name === "CastError") {
+  if (err.name == "CastError") {
     customError.msg = `Not found`;
     customError.statusCode = 404;
   }

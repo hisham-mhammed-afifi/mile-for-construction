@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-const projectWorkersSchema = new mongoose.Schema({
-  workerId: { type: mongoose.Types.ObjectId, ref: "Worker" },
-});
-
 const projectSchema = new mongoose.Schema(
   {
     name: {
@@ -22,7 +18,7 @@ const projectSchema = new mongoose.Schema(
       type: String,
       default: "project.jpg",
     },
-    workerId: [projectWorkersSchema],
+    workerId: [{ type: mongoose.Types.ObjectId, ref: "Worker" }],
   },
   { timestamps: true }
 );

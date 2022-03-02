@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-const workerProjectsSchema = new mongoose.Schema({
-  projectId: { type: mongoose.Types.ObjectId, ref: "Project" },
-});
-
 const workerSchema = new mongoose.Schema(
   {
     name: {
@@ -36,7 +32,7 @@ const workerSchema = new mongoose.Schema(
       ref: "Specialization",
       required: [true, "specialization is Required"],
     },
-    projects: [workerProjectsSchema],
+    projects: [{ type: mongoose.Types.ObjectId, ref: "Project" }],
 
     others: {
       type: Array,
