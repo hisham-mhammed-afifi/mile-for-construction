@@ -8,7 +8,7 @@ const addCost = async (req, res) => {
 };
 
 const getAllCost = async (req, res) => {
-  const costs = await Cost.find({});
+  const costs = await Cost.find({}).populate("projectName");
   res.status(StatusCodes.OK).json({ costs });
 };
 
@@ -54,4 +54,11 @@ const deleteCost = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Deleted Successfully" });
 };
 
-module.exports = { addCost, getSingleCost, getAllCost, updateCost, deleteCost, getSumProject };
+module.exports = {
+  addCost,
+  getSingleCost,
+  getAllCost,
+  updateCost,
+  deleteCost,
+  getSumProject,
+};
