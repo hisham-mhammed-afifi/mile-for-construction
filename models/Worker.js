@@ -12,8 +12,8 @@ const workerSchema = new mongoose.Schema(
       maxlength: 100,
     },
     mobile: {
-      type: Number,
-      required: [true, "Mobile Number is Required"],
+      type: [Number],
+      // required: [true, "Mobile Number is Required"],
       unique: [true, "Mobile Number is Already Registered"],
     },
     nationalID: {
@@ -30,7 +30,7 @@ const workerSchema = new mongoose.Schema(
     specialization: {
       type: mongoose.Types.ObjectId,
       ref: "Specialization",
-      required: [true, "specialization is Required"],
+      // required: [true, "specialization is Required"],
     },
     projects: [{ type: mongoose.Types.ObjectId, ref: "Project" }],
 
