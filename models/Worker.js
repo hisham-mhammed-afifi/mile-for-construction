@@ -12,9 +12,9 @@ const workerSchema = new mongoose.Schema(
       maxlength: 100,
     },
     mobile: {
-      type: [Number],
-      // required: [true, "Mobile Number is Required"],
-      unique: [true, "Mobile Number is Already Registered"],
+      type: Number,
+      required: [true, "Mobile Number is Required"],
+      unique: true,
     },
     nationalID: {
       type: Number,
@@ -38,7 +38,14 @@ const workerSchema = new mongoose.Schema(
       type: Array,
     },
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true } }
 );
+
+workerSchema.virtual("specs", {
+  ref: "Specialization",
+  localField: "specialization",
+  foreignField: "_id",
+  justOne: true,
+});
 
 module.exports = mongoose.model("Worker", workerSchema);
