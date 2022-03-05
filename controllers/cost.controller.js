@@ -29,6 +29,7 @@ const getSumProject = async (req, res) => {
         projectId: 1,
         amount: 1,
         projectName: "$projects.name",
+        budget: "$projects.budget",
       },
     },
     {
@@ -37,11 +38,24 @@ const getSumProject = async (req, res) => {
       },
     },
     {
+      $unwind: {
+        path: "$budget",
+      },
+    },
+    {
       $group: {
         _id: "$projectName",
         total: {
           $sum: "$amount",
         },
+        budget: {
+          $addToSet: "$budget",
+        },
+      },
+    },
+    {
+      $unwind: {
+        path: "$budget",
       },
     },
   ]);
