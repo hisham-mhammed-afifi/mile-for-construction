@@ -8,7 +8,7 @@ const addWorker = async (req, res) => {
 };
 
 const getAllWorkers = async (req, res) => {
-  const workers = await Worker.find({});
+  const workers = await Worker.find({}).populate("specs", ["name", "type"]);
   res.status(StatusCodes.OK).json({ workers });
 };
 const getWorker = async (req, res) => {
