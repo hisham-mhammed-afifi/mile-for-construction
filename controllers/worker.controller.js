@@ -6,6 +6,16 @@ const addWorker = async (req, res) => {
   const worker = await Worker.create(req.body);
   res.status(StatusCodes.CREATED).json({ worker });
 };
+const asignProject = async (req, res) => {
+  const worker = await Worker.findOne({ _id: req.params.id });
+  if (!worker) {
+    throw new NotFoundError("Worker not found");
+  }
+
+  worker.projects.push(req.body.projectId);
+  worker.save();
+  res.status(StatusCodes.CREATED).json({ worker });
+};
 
 const getAllWorkers = async (req, res) => {
   const workers = await Worker.find({}).populate("specs", ["name", "type"]);
@@ -42,4 +52,5 @@ module.exports = {
   getWorker,
   updateWorker,
   deleteWorker,
+  asignProject,
 };
