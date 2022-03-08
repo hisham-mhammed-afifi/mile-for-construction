@@ -6,6 +6,7 @@ const {
   getProject,
   updateProject,
   deleteProject,
+  uploadImage,
 } = require("../controllers/project.controller");
 
 router.post("/", addProject);
@@ -13,5 +14,6 @@ router.get("/:id", getProject);
 router.patch("/:id", updateProject);
 router.delete("/:id", deleteProject);
 router.get("/", getAllProjects);
+router.post("/uploadImage", uploadImage);
 
 module.exports = router;

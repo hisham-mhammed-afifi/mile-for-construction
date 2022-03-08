@@ -1,5 +1,5 @@
 const Project = require("../models/Project");
-const Cost = require("../models/Cost");
+const cloudinary = require("cloudinary").v2;
 const Account = require("../models/Account");
 const { NotFoundError } = require("../errors");
 const { StatusCodes } = require("http-status-codes");
@@ -46,10 +46,21 @@ const deleteProject = async (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "Sucssefully Deleted" });
 };
 
+const uploadImage = async (req, res) => {
+  const result = await cloudinary.uploader.upload(
+    req.files.image.tempFilePath,
+    { use_filename: true, folder: "mile-files" }
+  );
+  res.status(200).send({
+    imagePath: result.secure_url,
+  });
+};
+
 module.exports = {
   addProject,
   getAllProjects,
   getProject,
   updateProject,
   deleteProject,
+  uploadImage,
 };

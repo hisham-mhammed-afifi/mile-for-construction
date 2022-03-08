@@ -2,7 +2,24 @@ require("dotenv").config();
 require("express-async-errors");
 const cors = require("cors");
 const express = require("express");
+const fileUpload = require("express-fileupload");
+
 const app = express();
+
+// for image upload
+const cloudinary = require("cloudinary").v2;
+cloudinary.config({
+  cloud_name: "heroku-app",
+  api_key: "435898959395763",
+  api_secret: "V6LvRNVr_9tGKefPsbLA6zIAUlI",
+});
+
+app.use(
+  fileUpload({
+    useTempFiles: true,
+  })
+);
+
 const connectDB = require("./db/connect");
 const errorHandler = require("./middlewares/error-handler");
 const userRouter = require("./routes/user.routes");
