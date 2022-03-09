@@ -17,8 +17,7 @@ const projectSchema = new mongoose.Schema(
     },
     thumbnail: {
       type: String,
-      required: [true, "Project thumbnail is Required"],
-      default: ["project.jpg"],
+      default: "project.jpg",
     },
     images: {
       type: [String],

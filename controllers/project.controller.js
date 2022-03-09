@@ -47,12 +47,18 @@ const deleteProject = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
-  const result = await cloudinary.uploader.upload(
-    req.files.image.tempFilePath,
-    { use_filename: true, folder: "mile-files" }
-  );
+  // console.log(req.files.images);
+  let result = [];
+  for (let image of req.files.images) {
+    const p = await cloudinary.uploader.upload(image.tempFilePath, {
+      use_filename: true,
+      folder: "mile-files",
+    });
+    result.push(p.secure_url);
+  }
+
   res.status(200).send({
-    imagePath: result.secure_url,
+    images: result,
   });
 };
 
