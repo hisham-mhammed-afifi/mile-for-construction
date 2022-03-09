@@ -4,7 +4,7 @@ const projectSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      unique:true,
+      unique: true,
       required: [true, "Project name is Required"],
     },
     budget: {
@@ -15,7 +15,12 @@ const projectSchema = new mongoose.Schema(
       type: String,
       maxlength: 500,
     },
-    image: {
+    thumbnail: {
+      type: String,
+      required: [true, "Project thumbnail is Required"],
+      default: ["project.jpg"],
+    },
+    images: {
       type: [String],
       default: ["project.jpg"],
     },
