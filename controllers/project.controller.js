@@ -27,14 +27,10 @@ const getProject = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-  const project = await Project.findOneAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const project = await Project.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
   res.status(StatusCodes.OK).json({ project });
 };
 
@@ -47,14 +43,22 @@ const deleteProject = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
-  // console.log(req.files.images);
+  console.log(Array.isArray(req.files.images));
   let result = [];
-  for (let image of req.files.images) {
-    const p = await cloudinary.uploader.upload(image.tempFilePath, {
+  if (!Array.isArray(req.files.images)) {
+    const p = await cloudinary.uploader.upload(req.files.images.tempFilePath, {
       use_filename: true,
       folder: "mile-files",
     });
     result.push(p.secure_url);
+  } else {
+    for (let image of req.files.images) {
+      const p = await cloudinary.uploader.upload(image.tempFilePath, {
+        use_filename: true,
+        folder: "mile-files",
+      });
+      result.push(p.secure_url);
+    }
   }
 
   res.status(200).send({
