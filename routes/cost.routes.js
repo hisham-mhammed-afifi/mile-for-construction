@@ -9,12 +9,13 @@ const {
   deleteCost,
   getSumProject,
 } = require("../controllers/cost.controller");
+const { authenticatedUser } = require("../middlewares/auth");
 
-router.post("/", addCost);
-router.patch("/:id", updateCost);
-router.delete("/:id", deleteCost);
-router.get("/getsum", getSumProject);
-router.get("/:id", getSingleCost);
-router.get("/", getAllCost);
+router.post("/", authenticatedUser, addCost);
+router.patch("/:id", authenticatedUser, updateCost);
+router.delete("/:id", authenticatedUser, deleteCost);
+router.get("/getsum", authenticatedUser, getSumProject);
+router.get("/:id", authenticatedUser, getSingleCost);
+router.get("/", authenticatedUser, getAllCost);
 
 module.exports = router;

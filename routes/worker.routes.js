@@ -8,12 +8,13 @@ const {
   deleteWorker,
   asignProject,
 } = require("../controllers/worker.controller");
+const { authenticatedUser } = require("../middlewares/auth");
 
-router.get("/allWorkers", getAllWorkers);
-router.post("/add", addWorker);
-router.post("/:id/asignProject", asignProject);
-router.get("/:id", getWorker);
-router.patch("/:id", updateWorker);
-router.delete("/:id", deleteWorker);
+router.get("/allWorkers", authenticatedUser, getAllWorkers);
+router.post("/add", authenticatedUser, addWorker);
+router.post("/:id/asignProject", authenticatedUser, asignProject);
+router.get("/:id", authenticatedUser, getWorker);
+router.patch("/:id", authenticatedUser, updateWorker);
+router.delete("/:id", authenticatedUser, deleteWorker);
 
 module.exports = router;

@@ -8,11 +8,12 @@ const {
   updateContract,
   deleteContract,
 } = require("../controllers/contract.controller");
+const { authenticatedUser } = require("../middlewares/auth");
 
-router.post("/", addContract);
-router.get("/:id", getSingleContract);
-router.patch("/:id", updateContract);
-router.delete("/:id", deleteContract);
-router.get("/", getAllContract);
+router.post("/", authenticatedUser, addContract);
+router.get("/:id", authenticatedUser, getSingleContract);
+router.patch("/:id", authenticatedUser, updateContract);
+router.delete("/:id", authenticatedUser, deleteContract);
+router.get("/", authenticatedUser, getAllContract);
 
 module.exports = router;

@@ -7,11 +7,12 @@ const {
   updateSpecialization,
   deleteSpecialization,
 } = require("../controllers/specialization.controller");
+const { authenticatedUser } = require("../middlewares/auth");
 
-router.post("/", addSpecialization);
-router.get("/:id", getSpecialization);
-router.patch("/:id", updateSpecialization);
-router.delete("/:id", deleteSpecialization);
-router.get("/", getAllSpecializations);
+router.post("/", authenticatedUser, addSpecialization);
+router.get("/:id", authenticatedUser, getSpecialization);
+router.patch("/:id", authenticatedUser, updateSpecialization);
+router.delete("/:id", authenticatedUser, deleteSpecialization);
+router.get("/", authenticatedUser, getAllSpecializations);
 
 module.exports = router;
