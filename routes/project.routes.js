@@ -11,7 +11,7 @@ const {
 const { authenticatedUser } = require("../middlewares/auth");
 
 router.post("/", authenticatedUser, addProject);
-router.get("/:id", authenticatedUser, getProject);
+router.get("/:id", getProject);
 router.patch("/:id", authenticatedUser, updateProject);
 router.delete("/:id", authenticatedUser, deleteProject);
 router.get("/", getAllProjects);
