@@ -13,7 +13,6 @@ const getAllAccounts = async (req, res) => {
 };
 const getAccount = async (req, res) => {
   const account = await Account.find({ _id: req.params.id });
-  console.log(req.params.id);
   if (!account) {
     throw new NotFoundError("Account not found");
   }

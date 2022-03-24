@@ -11,11 +11,8 @@ const authenticatedUser = async (req, res, next) => {
   if (!token) {
     throw new NotAuthenticatedError("invalid Authentication");
   }
-  console.log("token", token);
   const user = isValidToken({ token });
-  console.log("from auth", user);
   req.user = { userID: user.userID, role: user.role };
-
   next();
 };
 
