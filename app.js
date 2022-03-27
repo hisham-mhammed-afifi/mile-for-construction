@@ -3,6 +3,7 @@ require("express-async-errors");
 const cors = require("cors");
 const express = require("express");
 const fileUpload = require("express-fileupload");
+const mongoSanitize = require("express-mongo-sanitize");
 
 const app = express();
 
@@ -29,9 +30,18 @@ const contractRouter = require("./routes/contract.routes");
 const specializationRouter = require("./routes/specialization.routes");
 const accountRoutes = require("./routes/account.routes");
 const costRouter = require("./routes/cost.routes");
+const rateLimit = require("express-rate-limit");
+
+const limiter = rateLimit({
+  max: 100,
+  windowMs: 60 * 60 * 1000,
+  message: "Too many requist from this IP, Please try again in an hour!",
+});
 
 app.use(cors());
 app.use(express.json());
+app.use(mongoSanitize());
+app.use(limiter);
 app.use("/users", userRouter);
 app.use("/worker", workerRouter);
 app.use("/project", projectRouter);
