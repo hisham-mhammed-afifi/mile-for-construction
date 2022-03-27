@@ -33,7 +33,7 @@ const costRouter = require("./routes/cost.routes");
 const rateLimit = require("express-rate-limit");
 
 const limiter = rateLimit({
-  max: 100,
+  max: 1000,
   windowMs: 60 * 60 * 1000,
   message: "Too many requist from this IP, Please try again in an hour!",
 });
