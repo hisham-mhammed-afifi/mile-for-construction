@@ -43,7 +43,7 @@ app.use(cors());
 app.use(express.json());
 app.use(mongoSanitize());
 app.use(limiter);
-app.use("/", (res, req) => {
+app.get("/", (req, res) => {
   res.status(StatusCodes.OK).json({ msg: "This mile for construction APIs" });
 });
 app.use("/users", userRouter);
