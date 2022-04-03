@@ -31,6 +31,7 @@ const specializationRouter = require("./routes/specialization.routes");
 const accountRoutes = require("./routes/account.routes");
 const costRouter = require("./routes/cost.routes");
 const rateLimit = require("express-rate-limit");
+const { StatusCodes } = require("http-status-codes");
 
 const limiter = rateLimit({
   max: 1000,
@@ -42,6 +43,9 @@ app.use(cors());
 app.use(express.json());
 app.use(mongoSanitize());
 app.use(limiter);
+app.use("/", (res, req) => {
+  res.status(StatusCodes.OK).json({ msg: "This mile for construction APIs" });
+});
 app.use("/users", userRouter);
 app.use("/worker", workerRouter);
 app.use("/project", projectRouter);
