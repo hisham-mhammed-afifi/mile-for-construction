@@ -21,14 +21,10 @@ const getSpecialization = async (req, res) => {
 };
 
 const updateSpecialization = async (req, res) => {
-  const specialization = await Specialization.findOneAndUpdate(
-    { _id: req.params.id },
-    req.body,
-    {
-      new: true,
-      runValidators: true,
-    }
-  );
+  const specialization = await Specialization.findOneAndUpdate({ _id: req.params.id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
   res.status(StatusCodes.OK).json({ specialization });
 };
 

@@ -7,7 +7,7 @@ const specializationSchema = new mongoose.Schema({
   },
   type: {
     type: String,
-    unique: true,
+    // unique: true,
     required: [true, "Type is Required"],
   },
   workerId: [{ type: mongoose.Types.ObjectId, ref: "Worker" }],
