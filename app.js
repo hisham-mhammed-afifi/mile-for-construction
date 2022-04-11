@@ -11,8 +11,8 @@ const app = express();
 const cloudinary = require("cloudinary").v2;
 cloudinary.config({
   cloud_name: "heroku-app",
-  api_key: "435898959395763",
-  api_secret: "V6LvRNVr_9tGKefPsbLA6zIAUlI",
+  api_key: process.env.CLOUDNARY_KEY,
+  api_secret: process.env.CLOUDNARY_API_SECRET,
 });
 
 app.use(
@@ -31,6 +31,7 @@ const specializationRouter = require("./routes/specialization.routes");
 const accountRoutes = require("./routes/account.routes");
 const costRouter = require("./routes/cost.routes");
 const rateLimit = require("express-rate-limit");
+const { StatusCodes } = require("http-status-codes");
 
 const limiter = rateLimit({
   max: 1000,
@@ -42,6 +43,9 @@ app.use(cors());
 app.use(express.json());
 app.use(mongoSanitize());
 app.use(limiter);
+app.get("/", (req, res) => {
+  res.status(StatusCodes.OK).json({ msg: "This mile for construction APIs" });
+});
 app.use("/users", userRouter);
 app.use("/worker", workerRouter);
 app.use("/project", projectRouter);
