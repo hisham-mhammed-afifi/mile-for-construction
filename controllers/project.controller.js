@@ -69,8 +69,8 @@ const uploadImage = async (req, res) => {
   });
 };
 const previewImagesInLandingPage = async (req, res) => {
-  const project = await Project.find({ secretProject: { $ne: true } });
-  res.status(StatusCodes.OK).json({ project });
+  const projects = await Project.find({ secretProject: { $ne: true } });
+  res.status(StatusCodes.OK).json({ projects });
 };
 module.exports = {
   addProject,
